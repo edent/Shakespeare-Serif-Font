@@ -1,6 +1,20 @@
-# Shakespeare-Serif-Font
+# Shakespeare Serif Font
 
 A serif font based on Shakespeare's First Folio.
+
+![Screenshot of FontForge showing the demo font.](https://shkspr.mobi/blog/wp-content/uploads/2023/07/fontforge.png)
+
+## TODO
+
+* Get more sample images from the 1st Folio.
+* Extract more letters, numbers, ligatures, and symbols.
+* Ensure non-contiguous glyphs are preserved.
+* Sort symbols into sub-directories.
+* Generate font with complete alphabet.
+* Tidy up curves.
+* Set correct height, ascenders, descenders, etc.
+* Make the ligatures automatic.
+* Other font stuff that I haven't even thought of yet!
 
 ## Licences
 
