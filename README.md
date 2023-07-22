@@ -4,6 +4,8 @@ A serif font based on Shakespeare's First Folio.
 
 ![Screenshot of FontForge showing the demo font.](https://shkspr.mobi/blog/wp-content/uploads/2023/07/fontforge.png)
 
+[Read all about it on my blog](https://shkspr.mobi/blog/?p=46355&preview=true)!
+
 ## TODO
 
 * Get more sample images from the 1st Folio.
