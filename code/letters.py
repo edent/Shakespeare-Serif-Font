@@ -1,43 +1,63 @@
 import cv2
 from PIL import Image
+import numpy as np
 
 def preprocess_image(image_path):
     # Load the image using OpenCV
     image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+    cv2.imwrite('image.png',image)
+    # Erode the image vertically
+    kernel = np.array([[0, 0, 0, 0, 0],
+                       [0, 0, 1, 0, 0],
+                       [0, 0, 1, 0, 0],
+                       [0, 0, 1, 0, 0],
+                       [0, 0, 0, 0, 0]], dtype=np.uint8)
+
+    erode = cv2.erode(image, kernel,iterations = 6)
+    cv2.imwrite('erode.png',erode)
 
     # Thresholding to convert to binary image
-    _, binary_image = cv2.threshold(image, 128, 255, cv2.THRESH_BINARY_INV)
+    _, binary_image = cv2.threshold(image, 120, 255, cv2.THRESH_BINARY_INV)
+    cv2.imwrite('binary_image.png',binary_image)
+    _, binary_erode = cv2.threshold(erode, 120, 255, cv2.THRESH_BINARY_INV)
+    cv2.imwrite('binary_erode.png',binary_erode)
+    
+    return image, binary_erode
 
-    # Find contours to isolate individual letters
-    contours, _ = cv2.findContours(binary_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
-    return image, contours
-
-def extract_and_save_letters(image, contours, output_directory):
+def extract_and_save_letters(image, binary_image, output_directory):
     # Create output directory if it doesn't exist
     import os
     if not os.path.exists(output_directory):
         os.makedirs(output_directory)
 
-    for i, contour in enumerate(contours):
-        x, y, w, h = cv2.boundingRect(contour)
+    # Find connected components (characters) in the binary image
+    num_labels, labels, stats, centroids = cv2.connectedComponentsWithStats(binary_image)
 
-        # Crop and save each letter as a separate image
-        letter_image = image[y:y + h, x:x + w]
+    for i in range(1, num_labels):  # Exclude background (index 0)
+        x, y, w, h, area = stats[i]
 
-        # Create a filename with the detected letter
-        letter_filename = f"letter_{i}.png"
+        # Filter out noise (adjust these thresholds as needed)
+        #if area < 50 or h > 1.5 * w:
+        #    continue
 
-        letter_path = os.path.join(output_directory, letter_filename)
-        cv2.imwrite(letter_path, letter_image)
+        # Crop and save each character as a separate image
+        # Add 1px padding to each side
+        character_image = image[y-1:y + h+1, x-1:x + w+1]
+        
+        if ( character_image.any() ) :
+
+            # Create a filename with the detected character
+            character_filename = f"character_{i}.png"
+
+            character_path = os.path.join(output_directory, character_filename)
+            cv2.imwrite(character_path, character_image)
 
 if __name__ == "__main__":
-    input_image_path = "letters.jpg"
-    output_directory = "/tmp/letters/all/"
+    input_image_path = "../samples/tempest-13.jpg"
+    output_directory = "../letters/all/"
 
     # Preprocess the image
-    image, contours = preprocess_image(input_image_path)
+    image, binary_image = preprocess_image(input_image_path)
 
-    # Perform OCR and save individual letters
-    extract_and_save_letters(image, contours, output_directory)
-
+    # Perform OCR and save individual characters
+    extract_and_save_letters(image, binary_image, output_directory)
