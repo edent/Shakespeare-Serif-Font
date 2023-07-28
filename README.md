@@ -2,15 +2,14 @@
 
 A serif font based on Shakespeare's First Folio.
 
-![Screenshot of FontForge showing the demo font.](https://shkspr.mobi/blog/wp-content/uploads/2023/07/fontforge.png)
+![Screenshot of FontForge showing the demo font.](https://shkspr.mobi/blog/wp-content/uploads/2023/07/Current-font.png)
 
-[Read all about it on my blog](https://shkspr.mobi/blog/?p=46355&preview=true)!
+[Read all about it on my blog](https://shkspr.mobi/blog/2023/07/shakespeare-serif-a-new-font-based-on-the-first-folio/)!
 
 ## TODO
 
 * Get more sample images from the 1st Folio.
 * Extract more letters, numbers, ligatures, and symbols.
-* Ensure non-contiguous glyphs are preserved.
 * Sort symbols into sub-directories.
 * Generate font with complete alphabet.
 * Tidy up curves.
