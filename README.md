@@ -15,6 +15,7 @@ A serif font based on Shakespeare's First Folio.
 * Tidy up curves.
 * Set correct height, ascenders, descenders, etc.
 * Make the ligatures automatic.
+* Use https://copypaste.wtf/TT2020/docs/moreinfo2.html to add variants of each letter.
 * Other font stuff that I haven't even thought of yet!
 
 ## Licences
